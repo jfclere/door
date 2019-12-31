@@ -53,3 +53,10 @@ For the 204 response:
 ```
 ErrorDocument 404 "/cgi-bin/missing_handler.cgi"
 ```
+
+Quick install:
+```bash
+cd door
+cp -p html/* /var/www/html/
+cp -p cgi-bin/* /var/www/cgi-bin
+```
