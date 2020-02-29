@@ -12,7 +12,7 @@ To open the door:
 ```
 
 
-The httpd.conf needs the following add (change 10.0.0.201 by our RPI3 address):
+The httpd.conf (/etc/httpd/conf/httpd.conf) needs the following add (change 10.0.0.201 by our RPI3 address):
 I have done the same in conf.d/ssl.conf ...
 ```
 # Send any page to index.html
