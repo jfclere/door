@@ -45,7 +45,7 @@ permission to read etc:
     Require all granted
 </Directory>
 ```
-mime_module one:
+mime_module one (commented out):
 ```
 AddHandler cgi-script .cgi
 ```
