@@ -60,3 +60,11 @@ cd door
 cp -p html/* /var/www/html/
 cp -p cgi-bin/* /var/www/cgi-bin
 ```
+in the sudoers:
+```
+apache ALL=NOPASSWD: /usr/bin/gpioset -m time -s 1 gpiochip0 18=1
+```
+in /etc/passwd: /sbin/nologin -> /bin/bash
+```
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+```
