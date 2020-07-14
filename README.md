@@ -68,3 +68,6 @@ in /etc/passwd: /sbin/nologin (only for testing -> /bin/bash)
 ```
 apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
 ```
+
+# Blinds
+Software to get the blinds up/down via RPI3.
