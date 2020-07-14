@@ -11,15 +11,16 @@ up = 26
 down = 16
 
 # Pin Setup:
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme
-GPIO.setup(in1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Switch 1
-GPIO.setup(in2, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Switch 2
+GPIO.setup(up, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Switch up
+GPIO.setup(down, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Switch down
 
-GPIO.setup(ledPin, GPIO.OUT) # LED pin set as output
-GPIO.setup(pwmPin, GPIO.OUT) # PWM pin set as output
+GPIO.setup(out1, GPIO.OUT) # Relay 1 pin set as outout
+GPIO.setup(out2, GPIO.OUT) # Relay 2 pin set as output
 
-while true:
+while True:
     rup = GPIO.input(up)
-    rdown = PIO.input(down)
+    rdown = GPIO.input(down)
     time.sleep(1)
     print("up : ", rup, " down: ", rdown);
