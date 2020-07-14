@@ -71,3 +71,7 @@ apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
 
 # Blinds
 Software to get the blinds up/down via RPI3.
+Use 32 bits fedora (64 doesn't work with python3-RPi.GPIO)
+```
+yum install python3-RPi.GPI
+```
