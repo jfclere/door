@@ -75,3 +75,7 @@ Use 32 bits fedora (64 doesn't work with python3-RPi.GPIO)
 ```
 yum install python3-RPi.GPIO
 ```
+in  /boot/extlinux/extlinux.conf append to the kernel configuration:
+```
+iomem=relaxed
+```
