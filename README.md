@@ -84,5 +84,6 @@ iomem=relaxed
 ```
 firewall-cmd --permanent --zone=FedoraServer  --add-rich-rule="rule family='ipv4' source address='111.161.74.113' reject"
 firewall-cmd --permanent --zone=FedoraServer  --add-rich-rule="rule family='ipv4' source address='222.186.173.226' reject"
+firewall-cmd --permanent --zone=FedoraServer  --add-rich-rule="rule family='ipv4' source address='111.30.114.22' reject"
 firewall-cmd --reload
 ```
