@@ -1,6 +1,9 @@
 # External module imports
 import RPi.GPIO as GPIO
 import time
+import pwd
+import grp
+import os
 
 # relays
 out1 = 20
@@ -12,9 +15,26 @@ down = 16
 
 # Write the button status in the status file.
 def write_status(status):
-    f = open("status.txt","w+")
+    filename = "/tmp/status.txt"
+    os.remove(filename)
+    f = open(filename,"w+")
     f.write(status)
     f.close()
+    uid = pwd.getpwnam("apache").pw_uid
+    gid = grp.getgrnam("apache").gr_gid
+    os.chown(filename, uid, gid)
+
+# the command from httpd
+def read_cmd():
+    try:
+        f = open("/tmp/cmd.txt","r")
+        data = f.read()
+        f.close()
+        os.remove("/tmp/cmd.txt")
+        return data.strip('\n')
+    except:
+        return "NONE"
+    
 
 # Pin Setup:
 GPIO.setwarnings(False)
@@ -52,3 +72,24 @@ while True:
     if newstatus != status:
        status = newstatus
        write_status(status)
+    else:
+       # nothing from the buttom (unchanged)
+       cmd = read_cmd()
+       if cmd == "UP":
+          GPIO.output(out1, GPIO.HIGH)
+          GPIO.output(out2, GPIO.HIGH)
+          time.sleep(90)
+       elif cmd == "DOWN":
+          GPIO.output(out1, GPIO.HIGH)
+          GPIO.output(out2, GPIO.LOW)
+          time.sleep(90)
+       elif cmd == "LIGHT":
+          GPIO.output(out1, GPIO.HIGH)
+          GPIO.output(out2, GPIO.HIGH) 
+          time.sleep(0.2)
+          GPIO.output(out1, GPIO.LOW)
+       elif cmd == "DARK":
+          GPIO.output(out1, GPIO.HIGH)
+          GPIO.output(out2, GPIO.LOW)
+          time.sleep(0.2)
+          GPIO.output(out1, GPIO.LOW)
