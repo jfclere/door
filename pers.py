@@ -3,8 +3,8 @@ import RPi.GPIO as GPIO
 import time
 
 # relays
-out1 = 21
-out2 = 20
+out1 = 20
+out2 = 21
 
 # switch input (zero when pushed)
 up = 26
@@ -30,12 +30,12 @@ while True:
     if rup == 0:
        # up is pressed Switch up and action.
        GPIO.output(out1, GPIO.HIGH)
-       GPIO.output(out2, GPIO.LOW) 
+       GPIO.output(out2, GPIO.HIGH) 
        action = True
     if rdown == 0:
        # down is pressed Switch down and action.
-       GPIO.output(out1, GPIO.LOW)
+       GPIO.output(out1, GPIO.HIGH)
        GPIO.output(out2, GPIO.LOW) 
        action = True
     if action == False:
-       GPIO.output(out2, GPIO.HIGH) 
+       GPIO.output(out1, GPIO.LOW) 

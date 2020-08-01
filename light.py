@@ -23,6 +23,6 @@ GPIO.setup(out2, GPIO.OUT) # Relay 2 pin set as output
 print("UP")
 GPIO.output(out1, GPIO.HIGH)
 GPIO.output(out2, GPIO.HIGH) 
-time.sleep(0.5)
+time.sleep(0.2)
 print("OFF")
 GPIO.output(out1, GPIO.LOW)
