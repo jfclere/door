@@ -10,6 +10,12 @@ out2 = 21
 up = 26
 down = 16
 
+# Write the button status in the status file.
+def write_status(status):
+    f = open("status.txt","w+")
+    f.write(status)
+    f.close()
+
 # Pin Setup:
 GPIO.setwarnings(False)
 GPIO.cleanup()
@@ -21,6 +27,7 @@ GPIO.setup(out1, GPIO.OUT) # Relay 1 pin set as outout
 GPIO.setup(out2, GPIO.OUT) # Relay 2 pin set as output
 
 # When press go to zero (should be 1).
+status = "NONE"
 while True:
     action = False
     time.sleep(0.1)
@@ -32,10 +39,16 @@ while True:
        GPIO.output(out1, GPIO.HIGH)
        GPIO.output(out2, GPIO.HIGH) 
        action = True
+       newstatus = "UP"
     if rdown == 0:
        # down is pressed Switch down and action.
        GPIO.output(out1, GPIO.HIGH)
        GPIO.output(out2, GPIO.LOW) 
        action = True
+       newstatus = "DOWN"
     if action == False:
        GPIO.output(out1, GPIO.LOW) 
+       newstatus = "NONE"
+    if newstatus != status:
+       status = newstatus
+       write_status(status)
