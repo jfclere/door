@@ -11,8 +11,8 @@ echo '<title>Welcome Home</title>'
 echo '</head>'
 echo '<body>'
 read a < /tmp/status.txt
-echo "Hello the blinds button is ${a} now..."
-echo "what do you want to do:"
+echo "Hello the blinds button is ${a} now...<br/>"
+echo "What do you want to do:"
 echo "<p><a href=\"/cgi-bin/blinds.cgi?DARK\"> Get less light</a></p>"
 echo "<p><a href=\"/cgi-bin/blinds.cgi?LIGHT\"> Get more light</a></p>"
 echo "<p><a href=\"/cgi-bin/blinds.cgi?UP\"> Get the blinds up completly</a></p>"
