@@ -34,7 +34,18 @@ def read_cmd():
         return data.strip('\n')
     except:
         return "NONE"
-    
+
+# put blinds up
+def do_up():    
+    # Switch up and action.
+    GPIO.output(out1, GPIO.HIGH)
+    GPIO.output(out2, GPIO.HIGH) 
+
+# put blinds down
+def do_down():    
+    # Switch down and action.
+    GPIO.output(out1, GPIO.HIGH)
+    GPIO.output(out2, GPIO.LOW) 
 
 # Pin Setup:
 GPIO.setwarnings(False)
@@ -55,15 +66,11 @@ while True:
     rdown = GPIO.input(down)
     # default to up
     if rup == 0:
-       # up is pressed Switch up and action.
-       GPIO.output(out1, GPIO.HIGH)
-       GPIO.output(out2, GPIO.HIGH) 
+       # up is pressed
        action = True
        newstatus = "UP"
     if rdown == 0:
-       # down is pressed Switch down and action.
-       GPIO.output(out1, GPIO.HIGH)
-       GPIO.output(out2, GPIO.LOW) 
+       # down is pressed
        action = True
        newstatus = "DOWN"
     if action == False:
@@ -72,24 +79,24 @@ while True:
     if newstatus != status:
        status = newstatus
        write_status(status)
+       if status == "UP":
+          do_up()
+       elif status == "DOWN":
+          do_down()
     else:
        # nothing from the buttom (unchanged)
        cmd = read_cmd()
        if cmd == "UP":
-          GPIO.output(out1, GPIO.HIGH)
-          GPIO.output(out2, GPIO.HIGH)
+          do_up()
           time.sleep(90)
        elif cmd == "DOWN":
-          GPIO.output(out1, GPIO.HIGH)
-          GPIO.output(out2, GPIO.LOW)
+          do_down()
           time.sleep(90)
        elif cmd == "LIGHT":
-          GPIO.output(out1, GPIO.HIGH)
-          GPIO.output(out2, GPIO.HIGH) 
+          do_up()
           time.sleep(0.2)
           GPIO.output(out1, GPIO.LOW)
        elif cmd == "DARK":
-          GPIO.output(out1, GPIO.HIGH)
-          GPIO.output(out2, GPIO.LOW)
+          do_down()
           time.sleep(0.2)
           GPIO.output(out1, GPIO.LOW)
