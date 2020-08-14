@@ -22,6 +22,11 @@ def ConvertVolts(data,places):
   volts = (data * 3.3) / float(1023)
   volts = round(volts,places)
   return volts
+
+# Convert the volts into meter per second
+# Copied from https://gitlab.com/fkumro/ex_windspeed.git (./lib/ex_windspeed/conversions.ex)
+def ConvertVoltsTomMS(volts):
+  return (volts - 0.4) / 1.6 * 32.4
  
 # Define sensor channels
 wind_channel = 0
@@ -35,6 +40,7 @@ while True:
   # Read the wind sensor data
   wind_level = ReadChannel(wind_channel)
   wind_volts = ConvertVolts(wind_level,2)
+  wind_ms = ConvertVoltsTomMS(wind_volts)
  
   # Read the reference sensor data
   ref_level = ReadChannel(ref_channel)
@@ -42,8 +48,10 @@ while True:
  
   # Print out results
   print "--------------------------------------------"
-  print("Wind: {} ({}V)".format(wind_level,wind_volts))
+  print("Wind: {} ({}V) ({}ms)".format(wind_level,wind_volts,wind_ms))
   print("Ref : {} ({}V)".format(ref_level,ref_volts))
+
+  #value to send the blinds up (probably 20 ms = 75 km/h)
  
   # Wait before repeating loop
   time.sleep(delay)
