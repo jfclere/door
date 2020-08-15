@@ -1,8 +1,39 @@
-#!/usr/bin/python
+#!/usr/bin/python3
  
 import spidev
 import time
 import os
+import pycurl
+from io import BytesIO 
+
+# get user/password from env
+auth=os.environ.get('AUTH')
+
+def SendBlindsUp():
+  b_obj = BytesIO() 
+  crl = pycurl.Curl() 
+
+  # Set URL value
+  crl.setopt(crl.URL, 'https://jfclere.ddns.net/cgi-bin/blinds.cgi?UP')
+  crl.setopt(pycurl.HTTPAUTH, pycurl.HTTPAUTH_BASIC)
+  crl.setopt(pycurl.USERPWD, auth)
+
+  # Write bytes that are utf-8 encoded
+  crl.setopt(crl.WRITEDATA, b_obj)
+
+  # Perform a file transfer 
+  crl.perform() 
+
+  # End curl session
+  crl.close()
+
+  # Get the content stored in the BytesIO object (in byte characters) 
+  get_body = b_obj.getvalue()
+
+  # Decode the bytes stored in get_body to HTML and check for 'Doing UP be patient'.
+  body_string = get_body.decode('utf8')
+  if (body_string.find('Doing UP be patient') == -1):
+    print("Error: ", body_string)
  
 # Open SPI bus
 spi = spidev.SpiDev()
@@ -30,7 +61,6 @@ def ConvertVoltsTomMS(volts):
  
 # Define sensor channels
 wind_channel = 0
-ref_channel  = 1
  
 # Define delay between readings
 delay = 5
@@ -42,16 +72,12 @@ while True:
   wind_volts = ConvertVolts(wind_level,2)
   wind_ms = ConvertVoltsTomMS(wind_volts)
  
-  # Read the reference sensor data
-  ref_level = ReadChannel(ref_channel)
-  ref_volts = ConvertVolts(ref_level,2)
- 
   # Print out results
-  print "--------------------------------------------"
   print("Wind: {} ({}V) ({}ms)".format(wind_level,wind_volts,wind_ms))
-  print("Ref : {} ({}V)".format(ref_level,ref_volts))
 
   #value to send the blinds up (probably 20 ms = 75 km/h)
+  if wind_ms > 20:
+     SendBlindsUp()
  
   # Wait before repeating loop
   time.sleep(delay)

@@ -1,0 +1,14 @@
+[Unit]
+Description=Wind alarm service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u mcp3008.py
+WorkingDirectory=/home/pi/door
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
