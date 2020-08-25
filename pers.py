@@ -16,7 +16,10 @@ down = 16
 # Write the button status in the status file.
 def write_status(status):
     filename = "/tmp/status.txt"
-    os.remove(filename)
+    try:
+        os.remove(filename)
+    except OSError as error:
+        print("Error: ", error)
     f = open(filename,"w+")
     f.write(status)
     f.close()
