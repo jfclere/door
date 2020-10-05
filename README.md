@@ -1,7 +1,7 @@
 # door
 Street door software
 
-Uses a RPI3 and hyperion relay board like hp-arl-2ch5v
+Uses a RPI3 and hyperion relay board like hp-arl-2ch5v (most are using: SRD-05VDC-SL-C)
 
 The relay board is connected to the 5V, gpio 18 and ground of RPI3.
 
