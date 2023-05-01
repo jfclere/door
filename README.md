@@ -93,6 +93,7 @@ firewall-cmd --reload
 apt-get install gpiod
 apt-get install apache2
 apt-get install libapache2-mod-md
+apt-get install certbot
 mkdir -p /var/www/cgi-bin
 a2enmod cgid
 a2enmod rewrite
