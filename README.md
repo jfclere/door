@@ -94,6 +94,7 @@ apt-get install gpiod
 apt-get install apache2
 apt-get install libapache2-mod-md
 apt-get install certbot
+apt-get install python3-certbot-apache
 mkdir -p /var/www/cgi-bin
 a2enmod cgid
 a2enmod rewrite
