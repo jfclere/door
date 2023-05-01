@@ -118,4 +118,17 @@ install the service:
 cp blinds.service /etc/systemd/system/
 sudo systemctl enable blinds
 ```
- 
+
+adjust apache2 service:
+```
+[Service]
+Type=forking
+Environment=APACHE_STARTED_BY_SYSTEMD=true
+ExecStart=/usr/sbin/apachectl start
+ExecStop=/usr/sbin/apachectl graceful-stop
+ExecReload=/usr/sbin/apachectl graceful
+KillMode=mixed
+PrivateTmp=false
+Restart=on-abort
+```
+
