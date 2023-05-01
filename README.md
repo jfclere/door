@@ -96,6 +96,7 @@ apt-get install libapache2-mod-md
 mkdir -p /var/www/cgi-bin
 a2enmod cgid
 a2enmod rewrite
+a2ensite default-ssl
 a2enmod ssl
 systemctl restart apache2
 ```
@@ -108,6 +109,8 @@ file "moved":
 /var/www/cgi-bin/ to /usr/lib/cgi-bin/
 
 /etc/apache2/conf-enabled/serve-cgi-bin.conf make to change to /var/www/cgi-bin/
+
+/etc/apache2/sites-available/default-ssl.conf
 
 install the service:
 ```bash
