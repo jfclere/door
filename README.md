@@ -96,6 +96,7 @@ apt-get install libapache2-mod-md
 mkdir -p /var/www/cgi-bin
 a2enmod cgid
 a2enmod rewrite
+a2enmod ssl
 systemctl restart apache2
 ```
 
