@@ -110,7 +110,7 @@ file "moved":
 
 /etc/apache2/conf-enabled/serve-cgi-bin.conf make to change to /var/www/cgi-bin/
 
-/etc/apache2/sites-available/default-ssl.conf
+/etc/apache2/sites-enabled/default-ssl.conf
 
 install the service:
 ```bash
